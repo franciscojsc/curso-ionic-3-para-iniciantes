@@ -28,7 +28,7 @@ export class FeedPage {
   //Quando a página estiver carregada
   ionViewDidLoad() {
     console.log('ionViewDidLoad FeedPage');
-    this.somaDoisNumero(10, 99);
+    //this.somaDoisNumero(10, 99);
   }
 
 }
