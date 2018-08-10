@@ -15,6 +15,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class FeedPage {
 
+  public objeto_feed = {
+    titulo: "Francisco Chaves",
+    data: "November 5, 1955",
+    descricao: "Estou criando um app invcrivel...",
+    qtd_like: "129 Likes",
+    qtd_comentario:"4 Comments",
+    time_comentario: "11h ago"
+  };
+
   //modificador de acesso, nome da varivel, tipo, valor
   public nome_usuario:string = "Francisco Chaves do código";
 

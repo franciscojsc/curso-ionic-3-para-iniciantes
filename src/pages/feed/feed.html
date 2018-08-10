@@ -24,32 +24,32 @@
         <img src="assets/imgs/marty-avatar.png">
       </ion-avatar>
       <!-- Interpolação, para ligar a variavel a tela {{ }} -->
-      <h2 class="feed_title">{{ nome_usuario }}</h2>
-      <p class="fedd_date">November 5, 1955</p>
+      <h2 class="feed_title">{{ objeto_feed.titulo }}</h2>
+      <p class="fedd_date">{{ objeto_feed.data }}</p>
     </ion-item>
 
     <img src="assets/imgs/advance-card-bttf.png">
 
     <ion-card-content>
-      <p>Estou criando um app invcrivel...</p>
+      <p>{{ objeto_feed.descricao }}</p>
     </ion-card-content>
 
     <ion-row>
       <ion-col>
         <button ion-button icon-start clear small>
           <ion-icon name="thumbs-up"></ion-icon>
-          <div>129 Likes</div>
+          <div>{{ objeto_feed.qtd_like }}</div>
         </button>
       </ion-col>
       <ion-col>
         <button ion-button icon-start clear small>
           <ion-icon name="text"></ion-icon>
-          <div>4 Comments</div>
+          <div>{{ objeto_feed.qtd_comentario }}</div>
         </button>
       </ion-col>
       <ion-col center text-center>
         <ion-note>
-          11h ago
+          {{ objeto_feed.time_comentario }}
         </ion-note>
       </ion-col>
     </ion-row>
