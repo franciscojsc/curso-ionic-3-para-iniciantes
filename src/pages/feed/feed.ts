@@ -63,6 +63,7 @@ export class FeedPage {
     .subscribe(
       data => {
         //sucesso
+      this.lista_filmes = data['results'];
       console.log(data);
     }, error => {
         //erro

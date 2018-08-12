@@ -15,23 +15,22 @@
 
 <ion-content padding>
 
-  <h1>Nome do usuário</h1>
-
-  <ion-card>
+  <!--*ngfor - angular, diretiva estrutural, mexer na estrutura da página-->
+  <ion-card *ngFor="let filme of lista_filmes">
 
     <ion-item>
       <ion-avatar item-start>
         <img src="assets/imgs/marty-avatar.png">
       </ion-avatar>
       <!-- Interpolação, para ligar a variavel a tela {{ }} -->
-      <h2 class="feed_title">{{ objeto_feed.titulo }}</h2>
-      <p class="fedd_date">{{ objeto_feed.data }}</p>
+      <h2 class="feed_title">{{ filme.original_title }}</h2>
+      <p class="fedd_date">{{ filme.release_date }}</p>
     </ion-item>
 
-    <img src="assets/imgs/advance-card-bttf.png">
+    <img [src]="'//image.tmdb.org/t/p/w300' + filme.backdrop_path"/>
 
     <ion-card-content>
-      <p>{{ objeto_feed.descricao }}</p>
+      <p>{{ filme.overview }}</p>
     </ion-card-content>
 
     <ion-row>
