@@ -41,12 +41,25 @@ export class FeedPage {
     alert(num1 + num2);
   }
 
+  
+  //o any diz que é objeto javascript
+  public lista_filmes = new Array<any>();
 
   //Quando a página estiver carregada
   ionViewDidLoad() {
 
     //utilizar observadores, para indicar quando a requisição estiver concluída
     this.movieProvider.getLatestMovies()
+    .subscribe(
+      data => {
+        //sucesso
+      console.log(data);
+    }, error => {
+        //erro
+      console.log(error);
+    });
+
+    this.movieProvider.getPopularMovies()
     .subscribe(
       data => {
         //sucesso

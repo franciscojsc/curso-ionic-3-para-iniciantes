@@ -24,9 +24,15 @@ export class MoovieProvider {
     
   }
 
+  getPopularMovies(){
+
+    return this.http.get(this.baseApiPath + "/movie/popular"+ this.getApiKey());
+
+  }
+
   private getApiKey ():string{
 
-    return "?#####";
+    return "#####";
 
   }
     
