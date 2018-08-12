@@ -41,6 +41,7 @@ export class FeedPage {
     alert(num1 + num2);
   }
 
+
   //Quando a página estiver carregada
   ionViewDidLoad() {
 

@@ -26,7 +26,7 @@ export class MoovieProvider {
 
   private getApiKey ():string{
 
-    return "########";
+    return "?#####";
 
   }
     
