@@ -9,9 +9,26 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class MoovieProvider {
+  
+  private baseApiPath:string = "https://api.themoviedb.org/3";
+  
 
   constructor(public http: HttpClient) {
     console.log('Hello MoovieProvider Provider');
   }
+
+  getLatestMovies(){
+
+    //MÉTODOS API - GET, POST, PUT, DELETE 
+    return this.http.get(this.baseApiPath + "/movie/latest"+ this.getApiKey());
+    
+  }
+
+  private getApiKey ():string{
+
+    return "########";
+
+  }
+    
 
 }
