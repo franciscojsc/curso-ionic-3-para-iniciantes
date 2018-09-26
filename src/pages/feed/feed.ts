@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { MoovieProvider } from '../../providers/moovie/moovie';
 
 /**
@@ -32,11 +32,26 @@ export class FeedPage {
   //modificador de acesso, nome da varivel, tipo, valor
   public nome_usuario:string = "Francisco Chaves do código";
 
-  //injetor o moovieProvider por construtor
-  constructor(public navCtrl: NavController, public navParams: NavParams, private movieProvider: MoovieProvider) {
+  public loading;
 
+  //injetor o moovieProvider por construtor
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private movieProvider: MoovieProvider,
+              public loadingCtrl: LoadingController) {
   }
 
+  abreCarregando() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Carregando filmes...'
+    });
+    this.loading.present();
+  }
+
+  fecharCarregando(){
+    this.loading.dismiss();
+  }
+  
   public somaDoisNumero(num1:number, num2:number): void{
     alert(num1 + num2);
   }
@@ -45,8 +60,10 @@ export class FeedPage {
   //o any diz que é objeto javascript
   public lista_filmes = new Array<any>();
 
-  //Quando a página estiver carregada
-  ionViewDidLoad() {
+  //Quando entra na página
+  ionViewDidEnter() {
+
+    this.abreCarregando();
 
     //utilizar observadores, para indicar quando a requisição estiver concluída
     this.movieProvider.getLatestMovies()
@@ -54,9 +71,13 @@ export class FeedPage {
       data => {
         //sucesso
       console.log(data);
+      this.fecharCarregando();
+
     }, error => {
         //erro
       console.log(error);
+      this.fecharCarregando();
+
     });
 
     this.movieProvider.getPopularMovies()
@@ -68,6 +89,7 @@ export class FeedPage {
     }, error => {
         //erro
       console.log(error);
+
     });
 
   }
