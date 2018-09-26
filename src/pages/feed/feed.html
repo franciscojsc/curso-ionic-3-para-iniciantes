@@ -15,6 +15,10 @@
 
 <ion-content padding>
 
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+       <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
   <!--*ngfor - angular, diretiva estrutural, mexer na estrutura da página-->
   <ion-card *ngFor="let filme of lista_filmes">
 

@@ -33,6 +33,8 @@ export class FeedPage {
   public nome_usuario:string = "Francisco Chaves do código";
 
   public loading;
+  public refresher;
+  public isrefresher;
 
   //injetor o moovieProvider por construtor
   constructor(public navCtrl: NavController,
@@ -56,13 +58,25 @@ export class FeedPage {
     alert(num1 + num2);
   }
 
+
+  doRefresh(refresher) {
+    this.refresher = refresher;
+    this.isrefresher = true;
+
+    this.carregarFilmes();
+
+  }
+
   
   //o any diz que é objeto javascript
   public lista_filmes = new Array<any>();
 
   //Quando entra na página
   ionViewDidEnter() {
+    this.carregarFilmes();
+  }
 
+  carregarFilmes(){
     this.abreCarregando();
 
     //utilizar observadores, para indicar quando a requisição estiver concluída
@@ -73,10 +87,20 @@ export class FeedPage {
       console.log(data);
       this.fecharCarregando();
 
+      if(this.isrefresher){
+        this.refresher.complete();
+        this.isrefresher = false;
+      }
+
     }, error => {
         //erro
       console.log(error);
       this.fecharCarregando();
+
+      if(this.isrefresher){
+        this.refresher.complete();
+        this.isrefresher = false;
+      }
 
     });
 
@@ -91,7 +115,6 @@ export class FeedPage {
       console.log(error);
 
     });
-
   }
 
 }
