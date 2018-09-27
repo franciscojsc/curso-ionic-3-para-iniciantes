@@ -23,6 +23,12 @@ export class MoovieProvider {
     return this.http.get(this.baseApiPath + "/movie/latest"+ this.getApiKey());
     
   }
+  getMovieDetails(filmeid){
+
+    //MÉTODOS API - GET, POST, PUT, DELETE 
+    return this.http.get(this.baseApiPath + `/movie/${filmeid}`+ this.getApiKey());
+    
+  }
 
   getPopularMovies(){
 
@@ -32,7 +38,7 @@ export class MoovieProvider {
 
   private getApiKey ():string{
 
-    return "#####";
+    return "?api_key=##############";
 
   }
     
