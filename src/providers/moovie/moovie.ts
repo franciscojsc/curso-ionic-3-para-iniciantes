@@ -17,28 +17,28 @@ export class MoovieProvider {
     console.log('Hello MoovieProvider Provider');
   }
 
-  getLatestMovies(){
+  getLatestMovies(page = 1){
 
     //MÉTODOS API - GET, POST, PUT, DELETE 
-    return this.http.get(this.baseApiPath + "/movie/latest"+ this.getApiKey());
+    return this.http.get(this.baseApiPath + `/movie/popular?page=${page}&`+ this.getApiKey());
     
   }
   getMovieDetails(filmeid){
 
     //MÉTODOS API - GET, POST, PUT, DELETE 
-    return this.http.get(this.baseApiPath + `/movie/${filmeid}`+ this.getApiKey());
+    return this.http.get(this.baseApiPath + `/movie/${filmeid}?`+ this.getApiKey());
     
   }
 
   getPopularMovies(){
 
-    return this.http.get(this.baseApiPath + "/movie/popular"+ this.getApiKey());
+    return this.http.get(this.baseApiPath + "/movie/popular?"+ this.getApiKey());
 
   }
 
   private getApiKey ():string{
 
-    return "?api_key=##############";
+    return "###############";
 
   }
     

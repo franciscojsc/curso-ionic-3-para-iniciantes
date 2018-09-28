@@ -35,7 +35,8 @@ export class FeedPage {
 
   public loading;
   public refresher;
-  public isrefresher;
+  public isRefreshing;
+  public infiniteScroll;
 
   //injetor o moovieProvider por construtor
   constructor(public navCtrl: NavController,
@@ -51,7 +52,7 @@ export class FeedPage {
     this.loading.present();
   }
 
-  fecharCarregando(){
+  fechaCarregando(){
     this.loading.dismiss();
   }
   
@@ -62,7 +63,7 @@ export class FeedPage {
 
   doRefresh(refresher) {
     this.refresher = refresher;
-    this.isrefresher = true;
+    this.isRefreshing = true;
 
     this.carregarFilmes();
 
@@ -71,6 +72,8 @@ export class FeedPage {
   
   //o any diz que é objeto javascript
   public lista_filmes = new Array<any>();
+
+  public page = 1;
 
   //Quando entra na página
   ionViewDidEnter() {
@@ -82,45 +85,42 @@ export class FeedPage {
     this.navCtrl.push(FilmeDetalhesPage, {filme: filme});
   }
 
-  carregarFilmes(){
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.infiniteScroll = infiniteScroll;
+    this.carregarFilmes(true);
+  }
+
+  carregarFilmes(newpage: boolean = false){
     this.abreCarregando();
+    this.movieProvider.getLatestMovies(this.page).subscribe(
+      data=>{
+          const response = (data as any);
+          const objeto_retorno = response.results;
 
-    //utilizar observadores, para indicar quando a requisição estiver concluída
-    this.movieProvider.getLatestMovies()
-    .subscribe(
-      data => {
-        //sucesso
-      console.log(data);
-      this.fecharCarregando();
+          if(newpage){
+            this.lista_filmes = this.lista_filmes.concat(objeto_retorno);
+            console.log(this.page);
+            console.log(this.lista_filmes);
+            this.infiniteScroll.complete();
+          }else{
+            this.lista_filmes = objeto_retorno;
+          }
 
-      if(this.isrefresher){
-        this.refresher.complete();
-        this.isrefresher = false;
+          this.fechaCarregando();
+          if(this.isRefreshing){
+              this.refresher.complete();
+              this.isRefreshing = false;
+          }
+      }, error => {
+          console.log(error);
+          this.fechaCarregando();
+          if(this.isRefreshing){
+              this.refresher.complete();
+              this.isRefreshing = false;
+          }
       }
-
-    }, error => {
-        //erro
-      console.log(error);
-      this.fecharCarregando();
-
-      if(this.isrefresher){
-        this.refresher.complete();
-        this.isrefresher = false;
-      }
-
-    });
-
-    this.movieProvider.getPopularMovies()
-    .subscribe(
-      data => {
-        //sucesso
-      this.lista_filmes = data['results'];
-      console.log(data);
-    }, error => {
-        //erro
-      console.log(error);
-
-    });
+    )
   }
 
 }
